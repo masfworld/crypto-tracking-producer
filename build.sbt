@@ -1,4 +1,4 @@
-name := "CryptoTracking"
+name := "crypto-tracking-producer"
 
 version := "0.1"
 
