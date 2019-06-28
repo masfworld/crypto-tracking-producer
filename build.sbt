@@ -19,3 +19,4 @@ libraryDependencies += "info.bitrich.xchange-stream" % "xchange-gdax" % "4.3.11"
 // https://mvnrepository.com/artifact/org.apache.kafka/kafka
 libraryDependencies += "org.apache.kafka" %% "kafka" % "2.2.1"
 
+libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
