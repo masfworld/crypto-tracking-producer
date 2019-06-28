@@ -17,6 +17,6 @@ object TickerCustom {
        |timestamp=${ticker.getTimestamp},
        |bidSize=${ticker.getBidSize},
        |askSize=${ticker.getAskSize}
-       |""".stripMargin}
+       |""".stripMargin.replaceAll("\n", "")}
 
 }
