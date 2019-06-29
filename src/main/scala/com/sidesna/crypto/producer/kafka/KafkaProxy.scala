@@ -1,3 +1,5 @@
+package com.sidesna.crypto.producer.kafka
+
 import java.util.Properties
 
 import org.apache.kafka.clients.producer.{Callback, KafkaProducer, ProducerRecord, RecordMetadata}
@@ -27,20 +29,4 @@ object KafkaProxy {
     })
   }
 
-}
-
-sealed trait Topic {
-  def name: String
-}
-
-case object TicksTopic extends Topic {
-  val name = "ticks"
-}
-
-sealed trait Key {
-  def name: String
-}
-
-case object TicksKey extends Key {
-  val name = "gdax_ticks"
 }

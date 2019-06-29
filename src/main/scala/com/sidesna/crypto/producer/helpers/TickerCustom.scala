@@ -1,3 +1,5 @@
+package com.sidesna.crypto.producer.helpers
+
 import org.knowm.xchange.dto.marketdata.Ticker
 
 object TickerCustom {
@@ -17,6 +19,6 @@ object TickerCustom {
        |timestamp=${ticker.getTimestamp},
        |bidSize=${ticker.getBidSize},
        |askSize=${ticker.getAskSize}
-       |""".stripMargin}
+       |""".stripMargin.replaceAll("\n", "")}
 
 }
