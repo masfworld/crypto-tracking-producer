@@ -1,6 +1,7 @@
-import org.knowm.xchange.currency.CurrencyPair
-import info.bitrich.xchangestream.gdax.GDAXStreamingExchange
+package com.sidesna.crypto.producer
 
+import info.bitrich.xchangestream.gdax.GDAXStreamingExchange
+import org.knowm.xchange.currency.CurrencyPair
 
 object Main {
 

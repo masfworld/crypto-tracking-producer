@@ -1,9 +1,12 @@
-import com.typesafe.scalalogging.LazyLogging
+package com.sidesna.crypto.producer
 
-import scala.reflect.runtime.universe._
+import com.typesafe.scalalogging.LazyLogging
 import info.bitrich.xchangestream.core.{ProductSubscription, StreamingExchange, StreamingExchangeFactory}
 import org.knowm.xchange.currency.CurrencyPair
 
+import scala.reflect.runtime.universe._
+import com.sidesna.crypto.producer.kafka._
+import com.sidesna.crypto.producer.helpers.TickerCustom
 
 /**
   * A class to represent a ''Exchange proxy''.
@@ -45,7 +48,7 @@ case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: Currenc
         .getTicker(currencyPair)
         .subscribe(ticker => {
           logger.debug(s"Ticker: $ticker")
-          KafkaProxy.sendTo(TicksTopic, TicksKey, TickerCustom.formatTicker(ticker))
+          KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
         })
     }
     catch { case _: Throwable => logger.error("Error in subscription")}

@@ -1,3 +1,5 @@
+package com.sidesna.crypto.producer.helpers
+
 import org.knowm.xchange.dto.marketdata.Ticker
 
 object TickerCustom {
