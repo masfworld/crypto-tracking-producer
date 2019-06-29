@@ -8,10 +8,3 @@ case object TopicTicks extends Topic {
   val name = "ticks"
 }
 
-sealed trait Key {
-  def name: String
-}
-
-case object KeyTicks extends Key {
-  val name = "gdax_ticks"
-}
