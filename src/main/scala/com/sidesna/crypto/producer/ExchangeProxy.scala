@@ -51,7 +51,6 @@ case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: Currenc
         .getStreamingMarketDataService
         .getTicker(currencyPair)
         .subscribe(ticker => {
-          logger.debug(s"Ticker: $ticker")
           KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
         })
     }

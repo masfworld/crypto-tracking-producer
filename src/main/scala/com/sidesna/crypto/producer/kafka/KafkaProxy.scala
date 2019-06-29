@@ -2,11 +2,12 @@ package com.sidesna.crypto.producer.kafka
 
 import java.util.Properties
 
+import com.typesafe.scalalogging.LazyLogging
 import org.apache.kafka.clients.producer.{Callback, KafkaProducer, ProducerRecord, RecordMetadata}
 
 import scala.concurrent.Promise
 
-object KafkaProxy {
+object KafkaProxy extends LazyLogging{
 
   private val producer = initKafka()
 
@@ -21,6 +22,7 @@ object KafkaProxy {
 
   def sendTo(topic: Topic, key: Key, msg: String) = {
     val data = new ProducerRecord[String, String](topic.name, key.name, msg)
+    logger.debug(s"Sending to topic ${topic.name} - $msg")
     val p = Promise[(RecordMetadata, Exception)]()
     producer.send(data, new Callback {
       override def onCompletion(metadata: RecordMetadata, exception: Exception): Unit = {
