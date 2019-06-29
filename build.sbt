@@ -21,3 +21,10 @@ libraryDependencies += "org.apache.kafka" %% "kafka" % "2.2.1"
 
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
+
+// also add ScalaTest as a framework to run the tests
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.8"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % Test
+
+// Add the ScalaMock library (versions 4.0.0 onwards)
+libraryDependencies += "org.scalamock" %% "scalamock" % "4.3.0" % Test
