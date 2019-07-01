@@ -13,7 +13,7 @@ object KafkaProxy extends LazyLogging{
 
   private def initKafka(): KafkaProducer[String, String] = {
     val props = new Properties()
-    props.put("bootstrap.servers", "localhost:9092")
+    props.put("bootstrap.servers", "192.168.1.5:9092")
     props.put("client.id", "gdaxProducer")
     props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
