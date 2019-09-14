@@ -4,6 +4,8 @@ version := "0.1"
 
 scalaVersion := "2.12.8"
 
+libraryDependencies += "javax.ws.rs" % "javax.ws.rs-api" % "2.1"
+
 // https://mvnrepository.com/artifact/info.bitrich.xchange-stream/xchange-stream-core
 libraryDependencies += "info.bitrich.xchange-stream" % "xchange-stream-core" % "4.3.15"
 
