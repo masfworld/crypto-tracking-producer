@@ -23,11 +23,14 @@ trait Configuration {
 
     val props = new Properties()
 
-    val map: Map[String, Object] = config.entrySet().asScala.map({ entry =>
+    // putAll method Failing with JDK 9
+    /*val map: Map[String, Object] = config.entrySet().asScala.map({ entry =>
       entry.getKey -> entry.getValue.unwrapped()
     })(collection.breakOut)
+    props.putAll(map.asJava)*/
 
-    props.putAll(map.asJava)
+    config.entrySet().asScala.foreach( x => props.put(x.getKey, x.getValue))
+
     props
   }
 
@@ -35,7 +38,7 @@ trait Configuration {
     * Loading Kafka Properties from configuration
     *
     * @return Properties Java Object containing Kakfa information
-    * */
+    **/
   def loadKakfaProperties: Properties = {
     val kafkaConfig = fallbackConfig.getConfig("kafka")
     propsFromConfig(kafkaConfig)
