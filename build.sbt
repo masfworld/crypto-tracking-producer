@@ -32,3 +32,5 @@ libraryDependencies += "org.scalamock" %% "scalamock" % "4.3.0" % Test
 // https://mvnrepository.com/artifact/io.spray/spray-json
 libraryDependencies += "io.spray" %% "spray-json" % "1.3.5"
 
+// Configuration library
+libraryDependencies += "com.typesafe" % "config" % "1.3.4"
