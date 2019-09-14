@@ -5,6 +5,4 @@ jdk: oraclejdk11
 scala: 2.12.8
 
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION test
-
-sbt_args: -Dpackaging.type=jar
+  - sbt ++$TRAVIS_SCALA_VERSION -Dpackaging.type=jar test
