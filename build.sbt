@@ -31,6 +31,9 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % Test
 // Add the ScalaMock library (versions 4.0.0 onwards)
 libraryDependencies += "org.scalamock" %% "scalamock" % "4.3.0" % Test
 
+// https://mvnrepository.com/artifact/org.mockito/mockito-scala
+libraryDependencies += "org.mockito" %% "mockito-scala" % "1.5.16" % Test
+
 // https://mvnrepository.com/artifact/io.spray/spray-json
 libraryDependencies += "io.spray" %% "spray-json" % "1.3.5"
 

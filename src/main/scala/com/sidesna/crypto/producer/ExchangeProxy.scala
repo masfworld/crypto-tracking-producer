@@ -25,7 +25,7 @@ import com.sidesna.crypto.producer.helpers.TickerCustom
   * @version 1.0
   * @todo Add more functionality.
   */
-case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: CurrencyPair) extends LazyLogging{
+case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: CurrencyPair) extends LazyLogging {
 
   /**
     * @return Returns generic class name
@@ -54,7 +54,11 @@ case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: Currenc
         KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
       })
   }
-  catch { case _: Throwable => logger.error("Error in subscription")}
+  catch {
+    case e: Throwable =>
+      logger.error(s"Error in subscription: $e")
+      throw e
+  }
 
   /**
     * Starting de connection with the exchange and sending data to Kafka server
