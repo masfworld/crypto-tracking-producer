@@ -29,7 +29,7 @@ trait Configuration {
     })(collection.breakOut)
     props.putAll(map.asJava)*/
 
-    config.entrySet().asScala.foreach( x => props.put(x.getKey, x.getValue))
+    config.entrySet().asScala.foreach( x => props.put(x.getKey, x.getValue.unwrapped()))
 
     props
   }
