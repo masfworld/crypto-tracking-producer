@@ -6,6 +6,7 @@ scala: 2.12.8
 
 script:
   - sbt ++$TRAVIS_SCALA_VERSION -Dpackaging.type=jar test
+  - sbt clean coverage test coverageReport
 
 cache:
   directories:
@@ -16,3 +17,8 @@ cache:
 before_cache:
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" -delete
   - find $HOME/.sbt        -name "*.lock"               -delete
+
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov --file coverage/lcov.info --disable search
