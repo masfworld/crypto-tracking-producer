@@ -1,0 +1,23 @@
+language: scala
+
+jdk: oraclejdk11
+
+scala: 2.12.8
+
+script:
+  - sbt clean coverage test coverageReport
+
+cache:
+  directories:
+    - $HOME/.coursier
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt
+
+before_cache:
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -delete
+  - find $HOME/.sbt        -name "*.lock"               -delete
+
+before_install:
+  - pip install --user codecov
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

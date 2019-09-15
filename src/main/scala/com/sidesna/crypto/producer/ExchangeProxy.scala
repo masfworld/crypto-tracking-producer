@@ -41,19 +41,24 @@ case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: Currenc
       .build()
   }
 
-  private def sendTicks(exchange: StreamingExchange) = {
-    try {
-      exchange
-        .getStreamingMarketDataService
-        .getTicker(currencyPair)
-        .subscribe(ticker => {
-          logger.debug(s"Ticker: $ticker")
-          KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
-        })
-    }
-    catch { case _: Throwable => logger.error("Error in subscription")}
-  }
 
+  /**
+    * @param exchange StreamingExchange created previously linked to a specific exchange service
+    */
+  private def sendTicks(exchange: StreamingExchange) = try {
+    exchange
+      .getStreamingMarketDataService
+      .getTicker(currencyPair)
+      .subscribe(ticker => {
+        logger.debug(s"Sending to Kafka: ${TickerCustom.formatTicker(ticker)}")
+        KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
+      })
+  }
+  catch { case _: Throwable => logger.error("Error in subscription")}
+
+  /**
+    * Starting de connection with the exchange and sending data to Kafka server
+    */
   def start = {
     val exchange = StreamingExchangeFactory
       .INSTANCE
