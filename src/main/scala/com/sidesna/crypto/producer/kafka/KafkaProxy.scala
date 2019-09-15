@@ -6,7 +6,12 @@ import org.apache.kafka.clients.producer.{Callback, KafkaProducer, ProducerRecor
 
 import scala.concurrent.Promise
 
-object KafkaProxy extends LazyLogging with Configuration {
+
+trait KafkaProxy {
+  def sendTo(topic: Topic, key: Key, msg: String)
+}
+
+object KafkaProxy extends LazyLogging with KafkaProxy with Configuration {
 
   private val producer = initKafka()
 
@@ -27,6 +32,7 @@ object KafkaProxy extends LazyLogging with Configuration {
     val p = Promise[(RecordMetadata, Exception)]()
     producer.send(data, new Callback {
       override def onCompletion(metadata: RecordMetadata, exception: Exception): Unit = {
+        if (exception != null) throw exception
         p.success((metadata, exception))
       }
     })
