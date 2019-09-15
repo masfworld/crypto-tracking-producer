@@ -11,3 +11,7 @@ Develop Branch
 
 [![Build Status](https://travis-ci.org/masfworld/crypto-tracking-producer.svg?branch=develop)](https://api.travis-ci.org/masfworld/crypto-tracking-producer.png)
 [![codecov](https://codecov.io/gh/masfworld/crypto-tracking-producer/branch/develop/graph/badge.svg)](https://codecov.io/gh/masfworld/crypto-tracking-producer)
+
+Application to ingest crypto data from exchanges to Kafka.
+
+Include Kafka-Druid configuration 

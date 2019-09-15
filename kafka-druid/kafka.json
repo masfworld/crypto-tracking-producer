@@ -1,0 +1,50 @@
+{
+  "type": "kafka",
+  "dataSchema": {
+    "dataSource": "ticks",
+    "parser": {
+      "type": "double",
+      "parseSpec": {
+        "format": "json",
+        "timestampSpec": {
+          "column": "timestamp",
+          "format": "auto"
+        },
+        "dimensionsSpec": {
+          "dimensions": [
+            { "name": "currencyPair", "type": "string" },
+            "open",
+            "bid",
+            "ask",
+            "high",
+            "low",
+            "avg",
+            "volume",
+            "quoteVolume",
+            "bidSize",
+            "askSize"
+          ]
+        }
+      }
+    },
+    "metricsSpec" : [
+      { "type" : "doubleLast", "name" : "tickAgg", "fieldName" : "last" }
+    ],
+    "granularitySpec": {
+      "rollup": true
+    }
+  },
+  "tuningConfig": {
+    "type": "kafka",
+    "reportParseExceptions": false
+  },
+  "ioConfig": {
+    "topic": "ticks",
+    "replicas": 1,
+    "taskDuration": "PT10M",
+    "completionTimeout": "PT20M",
+    "consumerProperties": {
+      "bootstrap.servers": "192.168.1.5:9092"
+    }
+  }
+}
