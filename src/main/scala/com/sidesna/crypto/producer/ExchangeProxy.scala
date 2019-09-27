@@ -7,6 +7,7 @@ import org.knowm.xchange.currency.CurrencyPair
 import scala.reflect.runtime.universe._
 import com.sidesna.crypto.producer.kafka._
 import com.sidesna.crypto.producer.helpers.TickerCustom
+import org.knowm.xchange.dto.marketdata.OrderBook
 
 /**
   * A class to represent a ''Exchange proxy''.
@@ -26,6 +27,8 @@ import com.sidesna.crypto.producer.helpers.TickerCustom
   * @todo Add more functionality.
   */
 case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: CurrencyPair) extends LazyLogging {
+
+  private var price: Option[BigDecimal] = None
 
   /**
     * @return Returns generic class name
@@ -50,8 +53,25 @@ case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: Currenc
       .getStreamingMarketDataService
       .getTicker(currencyPair)
       .subscribe(ticker => {
-        logger.debug(s"Sending to Kafka: ${TickerCustom.formatTicker(ticker)}")
-        KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
+        ticker.getAsk
+        logger.debug(s"Sending to Kafka Tick: ${TickerCustom.formatTicker(ticker)}")
+        //KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
+      })
+  }
+  catch {
+    case e: Throwable =>
+      logger.error(s"Error in subscription: $e")
+      throw e
+  }
+
+
+  private def sendOrderBooks(exchange: StreamingExchange) = try {
+    exchange
+      .getStreamingMarketDataService
+      .getOrderBook(currencyPair)
+      .subscribe(orderBook => {
+        //logger.debug(s"Sending to Kafka Order book: ${orderBook}")
+        //KafkaProxy.sendTo(TopicTicks, KeyTicks, TickerCustom.formatTicker(ticker))
       })
   }
   catch {
@@ -74,6 +94,7 @@ case class ExchangeProxy[S <: StreamingExchange : TypeTag](currencyPair: Currenc
       .blockingAwait()
 
     sendTicks(exchange)
+    sendOrderBooks(exchange)
 
   }
 

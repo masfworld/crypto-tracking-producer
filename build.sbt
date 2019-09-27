@@ -18,6 +18,10 @@ libraryDependencies += "info.bitrich.xchange-stream" % "xchange-coinbasepro" % "
 // https://mvnrepository.com/artifact/info.bitrich.xchange-stream/xchange-gdax
 libraryDependencies += "info.bitrich.xchange-stream" % "xchange-gdax" % "4.3.11"
 
+// https://mvnrepository.com/artifact/info.bitrich.xchange-stream/xchange-bitfinex
+libraryDependencies += "info.bitrich.xchange-stream" % "xchange-bitfinex" % "4.3.16"
+
+
 // https://mvnrepository.com/artifact/org.apache.kafka/kafka
 libraryDependencies += "org.apache.kafka" %% "kafka" % "2.2.1"
 
@@ -39,3 +43,10 @@ libraryDependencies += "io.spray" %% "spray-json" % "1.3.5"
 
 // Configuration library
 libraryDependencies += "com.typesafe" % "config" % "1.3.4"
+
+// Akka
+libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.5.25"
+libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.5.25"
+
+libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.5.25"
+
